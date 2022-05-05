@@ -1,0 +1,49 @@
+;;                               Configuration for most TKL keyboards
+;;                       use this if you need numeric keypad in some scenarios
+;;                   binded as numpad keys (not just numerics) for alt-codes input
+
+(defcfg
+  ;; ** For Linux **
+  input  (device-file "/dev/input/by-id/usb-SONiX_Draconic-event-kbd") ;; Change this line for your device
+  ;; input  (device-file "/dev/input/by-id/usb-Matias_Ergo_Pro_Keyboard-event-kbd")
+  output (uinput-sink "KMonad output")
+
+  ;; ** For Windows **
+  ;; input  (low-level-hook)
+  ;; output (send-event-sink)
+
+  ;; ** For MacOS **
+  ;; input  (iokit-name "my-keyboard-product-string")
+  ;; output (kext)
+
+  fallthrough true
+  allow-cmd true
+)
+
+(defsrc
+  esc     1    2    3    4    5    6    7    8    9    0    -    =    bspc
+  tab     q    w    e    r    t    y    u    i    o    p    '    [
+  caps    a    s    d    f    g    h    j    k    l    -    -    ]    ret
+  lsft    \    z    x    c    v    b    n    m    ,    .    ;    /    rsft
+  lctl    lmet lalt           spc                      ralt -    cmp  rctl
+)
+ 
+(defalias
+  nvk (layer-toggle navigate)
+)
+
+(deflayer qwerty
+  esc     1    2    3    4    5    6    7    8    9    0    -    =    bspc
+  tab     q    w    e    r    t    y    u    i    o    p    '    [
+  @nvk    a    s    d    f    g    h    j    k    l    -    -    ]    ret
+  lsft    \    z    x    c    v    b    n    m    ,    .    ;    /    rsft
+  lctl    lmet lalt           spc                      ralt -    cmp  rctl
+)
+
+(deflayer navigate
+  esc     1    2    3    4    5    6    7    8    9    0    -    =    bspc
+  tab     q    w    e    r    t    y    u    i    o    p    '    [
+  caps    a    s    d    f    g    left down up   rght -    -    ]    ret
+  lsft    \    z    x    c    v    b    n    m    ,    .    ;    /    rsft
+  lctl    lmet lalt           spc                      ralt -    cmp  rctl
+)
